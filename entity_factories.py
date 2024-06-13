@@ -1,6 +1,8 @@
-from Entity import Entity
+from Entity import Actor
+from components.ai import HostileEnemy
+from components.fighter import Fighter
 
-player = Entity(char="@", color=(255, 255, 255), name="Player", blocks_movement=True)
+player = Actor(char="@", color=(255, 255, 255), name="Tommy", ai_cls=HostileEnemy, fighter=Fighter(hp=30, defense=2, power=5),)
 
-bot = Entity(char="b", color=(63, 127, 63), name="Security Bot", blocks_movement=True)
-employee = Entity(char="E", color=(0, 127, 0), name="Employee", blocks_movement=True)
+bot = Actor(char="b", color=(63, 127, 63), name="Security Bot", ai_cls=HostileEnemy, fighter=Fighter(hp=8, defense=2, power=2))
+employee = Actor(char="E", color=(0, 127, 0), name="Employee", ai_cls=HostileEnemy, fighter=Fighter(hp=16, defense=1, power=4))
