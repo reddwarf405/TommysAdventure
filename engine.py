@@ -6,20 +6,20 @@ from tcod.console import Console
 from tcod.map import compute_fov
 
 import exceptions
-from input_handlers import MainGameEventHandler
 from render_functions import render_bar, render_names_at_mouse_location
 from message_log import MessageLog
+
+import lzma
+import pickle
 
 if TYPE_CHECKING:
  from Entity import Entity
  from game_map import GameMap
- from input_handlers import  EventHandler
 
 class Engine: 
     game_map: GameMap
 
     def __init__(self, player: Entity):
-        self.event_handler: EventHandler = MainGameEventHandler(self)
         self.player = player
         self.message_log = MessageLog()
         self.mouse_location = (0, 0)
@@ -56,3 +56,8 @@ class Engine:
 
        render_names_at_mouse_location(console=console, x=21, y=44, engine=self)
 
+    def save_as(self, filename: str) -> None:
+        """Save this Engine instance as a compressed file."""
+        save_data = lzma.compress(pickle.dumps(self))
+        with open(filename, "wb") as f:
+            f.write(save_data)
